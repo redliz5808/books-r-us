@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Home } from "./pages/Home/home";
 import { Favorites } from "./pages/Favorites/favorites";
-import {Search} from "./components/Search/search";
+import { Search } from "./components/Search/search";
 import "./App.css";
 
 export default function App() {
