@@ -24,9 +24,6 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
           <Route path="/favorites">
             <Favorites />
           </Route>
@@ -37,8 +34,4 @@ export default function App() {
       </div>
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
 }
