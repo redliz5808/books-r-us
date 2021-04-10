@@ -46,7 +46,7 @@ export class Home extends React.Component {
     const mappedData = this.state.horror.map((book) => {
       return (
         <Card>
-          <Link to={`/book/${book.id}`}>
+          <Link to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}>
             <div>{book.volumeInfo.title}</div>
             <div>
               <img
