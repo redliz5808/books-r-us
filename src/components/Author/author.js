@@ -1,5 +1,5 @@
 export const Author = (props) => {
   return (
-    <h2>{props.author}</h2>
+    <h4>{props.authors}</h4>
   )
 }

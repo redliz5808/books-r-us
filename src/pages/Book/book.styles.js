@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: space-around;
+  display: inline;
   margin: 10px;
+`
+
+export const CoverDiv = styled.div`
+  display: inline;
 `
