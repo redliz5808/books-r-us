@@ -1,5 +1,5 @@
-import axios from "axios";
 import React from "react";
+import axios from "axios";
 import { Cover } from "../../components/Cover/cover";
 import { Title } from "../../components/Title/title";
 import { Author } from "../../components/Author/author";
@@ -26,20 +26,21 @@ export class Book extends React.Component {
   };
 
   componentDidMount() {
-    const isbn = this.props.match.params.id;
+    const isbn = this.props.match.params.isbn;
     this.getBook(isbn);
   }
 
   render() {
     return (
       <>
+        {this.state.isLoading && <>Loading...</>}
         {this.state.data && !this.state.isLoading && (
           <Container>
-          <CoverDiv>
-            <Cover
-              coverUrl={this.state.data.volumeInfo.imageLinks.thumbnail}
-              title={this.state.data.volumeInfo.title}
-            />
+            <CoverDiv>
+              <Cover
+                coverUrl={this.state.data.volumeInfo.imageLinks.thumbnail}
+                title={this.state.data.volumeInfo.title}
+              />
             </CoverDiv>
             <Title title={this.state.data.volumeInfo.title} />
             <Author authors={this.state.data.volumeInfo.authors} />
