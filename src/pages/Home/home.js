@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Container } from "./home.styles";
-import { Card } from "./home.styles";
+import { AllBooks } from "../../components/AllBooks/allBooks";
 
 export class Home extends React.Component {
   state = {
@@ -34,61 +32,24 @@ export class Home extends React.Component {
     this.getBookData("history");
   }
 
-  mappedData = (genre) => {
-    if (this.state[genre] && !this.state.isLoading) {
-      const mappedData = this.state[genre].map((book) => {
-        return (
-          <Card>
-            <Link
-              to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}
-            >
-              <div>{book.volumeInfo.title}</div>
-              <div>
-                <img
-                  src={book.volumeInfo.imageLinks.thumbnail}
-                  alt={book.volumeInfo.title}
-                />
-              </div>
-            </Link>
-          </Card>
-        );
-      });
-      return <Container>{mappedData}</Container>;
-    }
-  };
-
   render() {
     return (
       <>
         {this.state.isLoading && <>Loading...</>}
-        {!this.state.isLoading && (
-          <>
+        {!this.state.isLoading &&
+          this.state.horror &&
+          this.state.romance &&
+          this.state.mystery &&
+          this.state.nonfiction &&
+          this.state.history && (
             <>
-              <h1>Horror</h1>
-              <div>{this.mappedData("horror")}</div>
+              <AllBooks data={this.state.horror} genre="Horror" />
+              <AllBooks data={this.state.romance} genre="Romance" />
+              <AllBooks data={this.state.mystery} genre="Mystery" />
+              <AllBooks data={this.state.nonfiction} genre="Nonfiction" />
+              <AllBooks data={this.state.history} genre="History" />
             </>
-
-            <>
-              <h1>Romance</h1>
-              <div>{this.mappedData("romance")}</div>
-            </>
-
-            <>
-              <h1>Mystery</h1>
-              <div>{this.mappedData("mystery")}</div>
-            </>
-
-            <>
-              <h1>Nonfiction</h1>
-              <div>{this.mappedData("nonfiction")}</div>
-            </>
-
-            <>
-              <h1>History</h1>
-              <div>{this.mappedData("history")}</div>
-            </>
-          </>
-        )}
+          )}
       </>
     );
   }
