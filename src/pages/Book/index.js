@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { Cover } from "../../components/Cover/cover";
-import { Title } from "../../components/Title/title";
-import { Author } from "../../components/Author/author";
-import { Description } from "../../components/Description/description";
+import { Cover } from "../../components/Cover";
+import { Title } from "../../components/Title";
+import { Author } from "../../components/Author";
+import { Description } from "../../components/Description";
 import { Container } from "./book.styles";
 import { CoverDiv } from "./book.styles";
 
