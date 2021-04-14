@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Home } from "./pages/Home/home";
 import { Favorites } from "./pages/Favorites/favorites";
 import { Search } from "./components/Search/search";
+import { Book } from "./pages/Book/book";
 import "./App.css";
 
 export default function App() {
@@ -24,21 +25,15 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
           <Route path="/favorites">
             <Favorites />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
           </Route>
+          <Route component={Book} path="/book/:isbn"></Route>
         </Switch>
       </div>
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
 }
