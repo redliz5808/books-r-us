@@ -26,7 +26,7 @@ export class Book extends React.Component {
   };
 
   componentDidMount() {
-    const isbn = this.props.match.params.isbn;
+    const { isbn } = this.props.match.params;
     this.getBook(isbn);
   }
 
