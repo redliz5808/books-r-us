@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { AllBooks } from "../../components/AllBooks/index";
-import { Loading } from "../../components/Loading/index";
+import { AllBooks } from "../../components/AllBooks/";
+import { Loading } from "../../components/Loading/";
 
 export class Home extends React.Component {
   state = {

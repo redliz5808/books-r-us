@@ -4,8 +4,7 @@ import { Cover } from "../../components/Cover";
 import { Title } from "../../components/Title";
 import { Author } from "../../components/Author";
 import { Description } from "../../components/Description";
-import { Container } from "./book.styles";
-import { CoverDiv } from "./book.styles";
+import { Container, CoverDiv } from "./book.styles";
 
 export class Book extends React.Component {
   state = {

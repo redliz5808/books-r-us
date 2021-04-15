@@ -6,8 +6,8 @@ class Search extends React.Component {
     value: null,
   };
   handleChange = (e) => {
-    const value = e.target.value;
-    this.setState({ value: value });
+    const { value } = e.target;
+    this.setState({ value });
   };
   handleSubmit = (e) => {
     e.preventDefault();
