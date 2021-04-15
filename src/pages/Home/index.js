@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { AllBooks } from "../../components/AllBooks/allBooks";
+import AllBooks from "../../components/AllBooks/";
+import Loading from "../../components/Loading/";
 
-export class Home extends React.Component {
+class Home extends React.Component {
   state = {
     data: null,
     isLoading: false,
@@ -35,7 +36,7 @@ export class Home extends React.Component {
 
     return (
       <>
-        {this.state.isLoading && <>Loading...</>}
+        {this.state.isLoading && <Loading />}
         {readyToLoad && (
           <>
             {Object.entries(this.state.data).map((entry) => {
@@ -54,3 +55,5 @@ export class Home extends React.Component {
     );
   }
 }
+
+export default Home;
