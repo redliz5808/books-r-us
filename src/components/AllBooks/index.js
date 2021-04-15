@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container, Card, Genre } from "./allBooks.styles";
 
-export const AllBooks = (props) => {
+const AllBooks = (props) => {
   const mappedBooks = props.data.map((book) => {
     return (
       <Card>
@@ -24,3 +24,5 @@ export const AllBooks = (props) => {
     </Container>
   );
 };
+
+export default AllBooks;

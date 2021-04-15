@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Loading } from "../../components/Loading/";
+import Loading from "../../components/Loading/";
 import unavailableCover from "../../assets/unavailableCover.png";
 
 class SearchPage extends React.Component {

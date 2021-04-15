@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { AllBooks } from "../../components/AllBooks/";
-import { Loading } from "../../components/Loading/";
+import AllBooks from "../../components/AllBooks/";
+import Loading from "../../components/Loading/";
 
-export class Home extends React.Component {
+class Home extends React.Component {
   state = {
     data: null,
     isLoading: false,
@@ -55,3 +55,5 @@ export class Home extends React.Component {
     );
   }
 }
+
+export default Home;

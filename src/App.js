@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Home } from "./pages/Home/index";
-import { Favorites } from "./pages/Favorites/";
+import Home from "./pages/Home/";
+import Favorites from "./pages/Favorites/";
 import Search from "./components/Search/";
 import SearchPage from "./pages/SearchPage/";
-import { Book } from "./pages/Book/";
+import Book from "./pages/Book/";
 import "./App.css";
 
 export default function App() {

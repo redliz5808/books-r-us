@@ -1,5 +1,7 @@
-export const Title = (props) => {
+const Title = (props) => {
   return (
     <h3>{props.title}</h3>
   )
 }
+
+export default Title;
