@@ -1,19 +1,18 @@
-import { Link } from "react-router-dom";
-import { Container, Card, Genre } from "./allBooks.styles";
+import { Container, Card, Genre, StyledLink, Cover, Title} from "./allBooks.styles";
 
 const AllBooks = (props) => {
   const mappedBooks = props.data.map((book) => {
     return (
       <Card>
-        <Link to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}>
-          <div>{book.volumeInfo.title}</div>
-          <div>
+        <StyledLink to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}>
+          <Title>{book.volumeInfo.title}</Title>
+          <Cover>
             <img
               src={book.volumeInfo.imageLinks.thumbnail}
               alt={book.volumeInfo.title}
             />
-          </div>
-        </Link>
+          </Cover>
+        </StyledLink>
       </Card>
     );
   });
