@@ -4,7 +4,9 @@ import Cover from "../../components/Cover";
 import Title from "../../components/Title";
 import Author from "../../components/Author";
 import Description from "../../components/Description";
+import Loading from "../../components/Loading";
 import { Container, CoverDiv, Favorite } from "./book.styles";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 class Book extends React.Component {
   state = {
@@ -19,7 +21,9 @@ class Book extends React.Component {
         `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({ data: data.items[0], isLoading: false });
-      this.state.data.favorited = false;
+      const favorited = { ...this.state.data };
+      favorited.favorited = false;
+      this.setState({ data: favorited });
     } catch (error) {
       console.log(error);
     }
@@ -39,26 +43,28 @@ class Book extends React.Component {
 
   render() {
     let button = "";
-    if (
+
+    const favoritesReadyToLoad =
       this.props.favorites &&
       this.state.data &&
-      this.props.favorites.includes(this.state.data.id)
-    ) {
+      this.props.favorites.includes(this.state.data.id);
+
+    if (favoritesReadyToLoad) {
       button = (
         <Favorite onClick={() => this.handleClick(this.state.data.id)}>
-          ★
+          <FaStar />
         </Favorite>
       );
     } else {
       button = (
         <Favorite onClick={() => this.handleClick(this.state.data.id)}>
-          ☆
+          <FaRegStar />
         </Favorite>
       );
     }
     return (
       <>
-        {this.state.isLoading && <>Loading...</>}
+        {this.state.isLoading && <Loading />}
         {this.state.data && !this.state.isLoading && (
           <Container>
             <CoverDiv>

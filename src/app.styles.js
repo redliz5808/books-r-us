@@ -5,3 +5,7 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #000;
 `;
+
+export const BigStar = styled.p`
+  font-size: 25px;
+`

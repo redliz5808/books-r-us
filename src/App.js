@@ -6,7 +6,8 @@ import Search from "./components/Search/";
 import SearchPage from "./pages/SearchPage/";
 import Book from "./pages/Book/";
 import "./App.css";
-import { StyledLink } from "./app.styles";
+import { StyledLink, BigStar } from "./app.styles";
+import { FaStar } from "react-icons/fa";
 
 export default class App extends React.Component {
   state = {
@@ -14,13 +15,15 @@ export default class App extends React.Component {
   };
 
   handleClick = (id) => {
-    const index = this.state.favorites.indexOf(id);
     const { favorites } = this.state;
-    if (this.state.favorites.includes(id) && index !== -1) {
-      this.state.favorites.splice(index, 1);
+    let modifiedFavorites = [];
+    if (favorites.includes(id)) {
+      modifiedFavorites = favorites.filter((favorite) => favorite !== id);
+      this.setState({ favorites: modifiedFavorites });
       localStorage.setItem("favorites", JSON.stringify(favorites));
     } else {
-      this.state.favorites.push(id);
+      modifiedFavorites = favorites.concat(id);
+      this.setState({ favorites: modifiedFavorites });
       localStorage.setItem("favorites", JSON.stringify(favorites));
     }
   };
@@ -44,7 +47,11 @@ export default class App extends React.Component {
                 <Search />
               </li>
               <li>
-                <StyledLink to="/favorites" style={{fontSize:"25px"}}>★</StyledLink>
+                <StyledLink to="/favorites">
+                  <BigStar>
+                    <FaStar />
+                  </BigStar>
+                </StyledLink>
               </li>
             </ul>
           </nav>
@@ -56,9 +63,7 @@ export default class App extends React.Component {
               )}
               path="/favorites"
             ></Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
+            <Route component={Home} exact path="/"></Route>
             <Route
               render={(props) => (
                 <Book

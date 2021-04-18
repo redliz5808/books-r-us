@@ -1,7 +1,7 @@
 import { StyledAuthor } from "./author.styles";
 
-const Author = (props) => {
-  return <StyledAuthor>{props.authors}</StyledAuthor>;
+const Author = ({ authors }) => {
+  return <StyledAuthor>{authors}</StyledAuthor>;
 };
 
 export default Author;

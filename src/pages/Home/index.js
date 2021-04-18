@@ -29,6 +29,8 @@ class Home extends React.Component {
     this.getBookData("mystery");
     this.getBookData("nonfiction");
     this.getBookData("history");
+    this.getBookData("self-help");
+    this.getBookData("fantasy");
   }
 
   render() {

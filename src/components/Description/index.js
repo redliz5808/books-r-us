@@ -1,7 +1,7 @@
 import { StyledDescription } from "./description.styles";
 
-const Description = (props) => {
-  return <StyledDescription>{props.description}</StyledDescription>;
+const Description = ({ description }) => {
+  return <StyledDescription>{description}</StyledDescription>;
 };
 
 export default Description;

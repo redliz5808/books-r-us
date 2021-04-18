@@ -1,14 +1,30 @@
-import { Container, Card, Genre, StyledLink, Cover, Title} from "./allBooks.styles";
+import unavailableCover from "../../assets/unavailableCover.png";
+import {
+  Container,
+  Card,
+  Genre,
+  StyledLink,
+  Cover,
+  Title,
+} from "./allBooks.styles";
 
-const AllBooks = (props) => {
-  const mappedBooks = props.data.map((book) => {
+const AllBooks = ({ data, genre }) => {
+  const mappedBooks = data.map((book) => {
+    let imageSrc = "";
+    if (!book.volumeInfo.imageLinks) {
+      imageSrc = unavailableCover;
+    } else {
+      imageSrc = book.volumeInfo.imageLinks.thumbnail;
+    }
     return (
       <Card>
-        <StyledLink to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}>
+        <StyledLink
+          to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}
+        >
           <Title>{book.volumeInfo.title}</Title>
           <Cover>
             <img
-              src={book.volumeInfo.imageLinks.thumbnail}
+              src={imageSrc}
               alt={book.volumeInfo.title}
             />
           </Cover>
@@ -16,9 +32,10 @@ const AllBooks = (props) => {
       </Card>
     );
   });
+
   return (
     <Container>
-      <Genre>{props.genre}</Genre>
+      <Genre>{genre}</Genre>
       {mappedBooks}
     </Container>
   );

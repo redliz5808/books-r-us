@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import {StyledInput} from "./search.styles";
+import { StyledInput } from "./search.styles";
 
 class Search extends React.Component {
   state = {
@@ -17,11 +17,13 @@ class Search extends React.Component {
   };
   render() {
     return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <StyledInput onChange={this.handleChange} value={this.state.value} placeholder="Search"/>
-        </form>
-      </>
+      <form onSubmit={this.handleSubmit}>
+        <StyledInput
+          onChange={this.handleChange}
+          value={this.state.value}
+          placeholder="Search"
+        />
+      </form>
     );
   }
 }

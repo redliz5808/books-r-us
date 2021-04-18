@@ -1,9 +1,9 @@
 import { StyledCover } from "./cover.styles";
 
-const Cover = (props) => {
+const Cover = ({ coverUrl, title }) => {
   return (
     <StyledCover>
-      <img src={props.coverUrl} alt={props.title} />
+      <img src={coverUrl} alt={title} />
     </StyledCover>
   );
 };
