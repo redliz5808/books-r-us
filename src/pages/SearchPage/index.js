@@ -65,6 +65,7 @@ class SearchPage extends React.Component {
           <>
             <Container>
               {Object.entries(this.state.data).map((book) => {
+                // eslint-disable-next-line no-unused-vars
                 const [key, value] = book;
                 let imageSrc = "";
                 if (!value.volumeInfo.imageLinks) {

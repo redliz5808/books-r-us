@@ -1,33 +1,16 @@
 import React from "react";
-import axios from "axios";
 import Loading from "../../components/Loading";
-import { Container, Card, Title, Author, Cover } from "./favorites.styles";
+import { Container, Card, Title, Author, Cover, StyledLink } from "./favorites.styles";
 
 class Favorites extends React.Component {
   state = {
-    data: [],
+    data: {},
     isLoading: false,
   };
 
   fetchFavorite = () => {
-    this.props.favorites.map((favorite) => {
-      const retrieveFavorite = async (favorite) => {
-        try {
-          this.setState({ isLoading: true });
-          const { data } = await axios(
-            `https://www.googleapis.com/books/v1/volumes/${favorite}`
-          );
-          const updatedState = { ...this.state.data };
-          updatedState[favorite] = data.volumeInfo;
-          this.setState({ data: updatedState, isLoading: false });
-        } catch (error) {
-          this.setState({ isLoading: true });
-          console.log(error);
-        }
-      };
-      retrieveFavorite(favorite);
-      return favorite;
-    });
+    const favorites = JSON.parse(localStorage.getItem("favoritedBooks")) || {};
+    this.setState({ data: favorites, isLoading: false });
   };
 
   componentDidMount() {
@@ -41,14 +24,20 @@ class Favorites extends React.Component {
         {this.state.data && !this.state.isLoading && (
           <Container>
             {Object.entries(this.state.data).map((entry) => {
+              // eslint-disable-next-line no-unused-vars
               const [key, value] = entry;
               return (
                 <Card>
-                  <Title>{value.title}</Title>
-                  <Author>{value.authors}</Author>
-                  <Cover>
-                    <img src={value.imageLinks.thumbnail} alt={value.title} />
-                  </Cover>
+                  <StyledLink to={`/book/${value.id}`}>
+                    <Title>{value.volumeInfo.title}</Title>
+                    <Author>{value.volumeInfo.authors}</Author>
+                    <Cover>
+                      <img
+                        src={value.volumeInfo.imageLinks.thumbnail}
+                        alt={value.volumeInfo.title}
+                      />
+                    </Cover>
+                  </StyledLink>
                 </Card>
               );
             })}

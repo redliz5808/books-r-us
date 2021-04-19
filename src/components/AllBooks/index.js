@@ -19,7 +19,7 @@ const AllBooks = ({ data, genre }) => {
     return (
       <Card>
         <StyledLink
-          to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}
+          to={`/book/${book.id}`}
         >
           <Title>{book.volumeInfo.title}</Title>
           <Cover>

@@ -14,13 +14,13 @@ class Book extends React.Component {
     isLoading: false,
   };
 
-  getBook = async (isbn) => {
+  getBook = async (id) => {
     try {
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.REACT_APP_API_KEY}`
+        `https://www.googleapis.com/books/v1/volumes/${id}`
       );
-      this.setState({ data: data.items[0], isLoading: false });
+      this.setState({ data: data, isLoading: false });
       const favorited = { ...this.state.data };
       favorited.favorited = false;
       this.setState({ data: favorited });
@@ -30,38 +30,52 @@ class Book extends React.Component {
   };
 
   componentDidMount() {
-    const { isbn } = this.props.match.params;
-    this.getBook(isbn);
+    const { id } = this.props.match.params;
+    this.getBook(id);
+    let favoritedBooks =
+      JSON.parse(localStorage.getItem("favoritedBooks")) || {};
+    this.setState({ favoritedBooks });
   }
 
   handleClick = (id) => {
     const book = { ...this.state.data };
     book.favorited = !book.favorited;
-    this.setState({ data: book });
-    this.props.handleClick(id);
+    let favoritedBooks =
+      JSON.parse(localStorage.getItem("favoritedBooks")) || {};
+
+    let modifiedFavorites = [];
+    if (favoritedBooks[id]) {
+      modifiedFavorites = Object.entries(favoritedBooks).filter(
+        ([key, value]) => value.id !== id
+      );
+      const favoritesObject = Object.fromEntries(modifiedFavorites);
+      this.setState({ favoritedBooks: favoritesObject }, function () {
+        localStorage.setItem(
+          "favoritedBooks",
+          JSON.stringify(this.state.favoritedBooks)
+          );
+      });
+    } else if (!favoritedBooks) {
+      localStorage.setItem("favoritedBooks", JSON.stringify({}));
+      favoritedBooks = {};
+    } else {
+      favoritedBooks[book.id] = book;
+      localStorage.setItem("favoritedBooks", JSON.stringify(favoritedBooks));
+      this.setState({ data: book, favoritedBooks });
+    }
+
   };
 
   render() {
-    let button = "";
-
     const favoritesReadyToLoad =
-      this.props.favorites &&
-      this.state.data &&
-      this.props.favorites.includes(this.state.data.id);
+      this.state.data && this.state.favoritedBooks[this.state.data.id];
 
-    if (favoritesReadyToLoad) {
-      button = (
-        <Favorite onClick={() => this.handleClick(this.state.data.id)}>
-          <FaStar />
-        </Favorite>
-      );
-    } else {
-      button = (
-        <Favorite onClick={() => this.handleClick(this.state.data.id)}>
-          <FaRegStar />
-        </Favorite>
-      );
-    }
+    const button = (
+      <Favorite onClick={() => this.handleClick(this.state.data.id)}>
+        {favoritesReadyToLoad ? <FaStar /> : <FaRegStar />}
+      </Favorite>
+    );
+
     return (
       <>
         {this.state.isLoading && <Loading />}
