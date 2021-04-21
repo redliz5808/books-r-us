@@ -54,9 +54,6 @@ class Book extends React.Component {
           JSON.stringify(this.state.favoritedBooks)
           );
       });
-    // } else if (!favoritedBooks) {
-    //   localStorage.setItem("favoritedBooks", JSON.stringify({}));
-    //   favoritedBooks = {};
     } else {
       favoritedBooks[book.id] = book;
       localStorage.setItem("favoritedBooks", JSON.stringify(favoritedBooks));
