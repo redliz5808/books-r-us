@@ -4,7 +4,9 @@ import Cover from "../../components/Cover";
 import Title from "../../components/Title";
 import Author from "../../components/Author";
 import Description from "../../components/Description";
-import { Container, CoverDiv } from "./book.styles";
+import Loading from "../../components/Loading";
+import { Container, CoverDiv, Favorite } from "./book.styles";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 class Book extends React.Component {
   state = {
@@ -12,27 +14,67 @@ class Book extends React.Component {
     isLoading: false,
   };
 
-  getBook = async (isbn) => {
+  getBook = async (id) => {
     try {
       this.setState({ isLoading: true });
       const { data } = await axios(
-        `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${process.env.REACT_APP_API_KEY}`
+        `https://www.googleapis.com/books/v1/volumes/${id}`
       );
-      this.setState({ data: data.items[0], isLoading: false });
+      const favorited = data;
+      favorited.favorited = false;
+      this.setState({ data: favorited, isLoading: false });
     } catch (error) {
       console.log(error);
     }
   };
 
   componentDidMount() {
-    const { isbn } = this.props.match.params;
-    this.getBook(isbn);
+    const { id } = this.props.match.params;
+    this.getBook(id);
+    let favoritedBooks =
+      JSON.parse(localStorage.getItem("favoritedBooks")) || {};
+    this.setState({ favoritedBooks });
   }
 
+  handleClick = (id) => {
+    const book = { ...this.state.data };
+    book.favorited = !book.favorited;
+    let favoritedBooks =
+      JSON.parse(localStorage.getItem("favoritedBooks")) || {};
+
+    let modifiedFavorites = [];
+    if (favoritedBooks[id]) {
+      modifiedFavorites = Object.entries(favoritedBooks).filter(
+        ([key, value]) => value.id !== id
+      );
+      const favoritesObject = Object.fromEntries(modifiedFavorites);
+      this.setState({ favoritedBooks: favoritesObject }, function () {
+        localStorage.setItem(
+          "favoritedBooks",
+          JSON.stringify(this.state.favoritedBooks)
+          );
+      });
+    } else {
+      favoritedBooks[book.id] = book;
+      localStorage.setItem("favoritedBooks", JSON.stringify(favoritedBooks));
+      this.setState({ data: book, favoritedBooks });
+    }
+
+  };
+
   render() {
+    const favoritesReadyToLoad =
+      this.state.data && this.state.favoritedBooks[this.state.data.id];
+
+    const button = (
+      <Favorite onClick={() => this.handleClick(this.state.data.id)}>
+        {favoritesReadyToLoad ? <FaStar /> : <FaRegStar />}
+      </Favorite>
+    );
+
     return (
       <>
-        {this.state.isLoading && <>Loading...</>}
+        {this.state.isLoading && <Loading />}
         {this.state.data && !this.state.isLoading && (
           <Container>
             <CoverDiv>
@@ -41,6 +83,7 @@ class Book extends React.Component {
                 title={this.state.data.volumeInfo.title}
               />
             </CoverDiv>
+            {button}
             <Title title={this.state.data.volumeInfo.title} />
             <Author authors={this.state.data.volumeInfo.authors} />
             <Description description={this.state.data.volumeInfo.description} />

@@ -1,7 +1,7 @@
-const Title = (props) => {
-  return (
-    <h3>{props.title}</h3>
-  )
-}
+import { StyledTitle } from "./title.styles";
+
+const Title = ({ title }) => {
+  return <StyledTitle>{title}</StyledTitle>;
+};
 
 export default Title;

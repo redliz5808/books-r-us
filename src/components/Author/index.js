@@ -1,7 +1,21 @@
-const Author = (props) => {
+import { StyledAuthor } from "./author.styles";
+
+const Author = ({ authors }) => {
+  const multipleAuthors = authors.map((author) => {
+    return (
+      <ul>
+        <StyledAuthor>{author}</StyledAuthor>
+      </ul>
+    );
+  });
   return (
-    <h4>{props.authors}</h4>
-  )
-}
+    <>
+      <StyledAuthor>
+        <div>Author(s):</div>
+        {multipleAuthors}
+      </StyledAuthor>
+    </>
+  );
+};
 
 export default Author;

@@ -1,7 +1,11 @@
-const Description = (props) => {
+import { StyledDescription } from "./description.styles";
+
+const Description = ({ description }) => {
   return (
-    <p>{props.description}</p>
-  )
-}
+    <StyledDescription
+      dangerouslySetInnerHTML={{ __html: description }}
+    ></StyledDescription>
+  );
+};
 
 export default Description;

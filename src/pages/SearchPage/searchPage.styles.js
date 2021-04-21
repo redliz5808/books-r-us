@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
@@ -22,26 +21,14 @@ export const Card = styled.div`
   background-color: #BFAFA6;
 `
 
-export const Genre = styled.h1`
-  display: block;
-  width: 100vw;
-  text-align: center;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #6C698D;
-  color: #fff;
-`
-
-export const StyledLink = styled(Link)`
-  background-color: #BFAFA6;
-  text-decoration: none;
-  color: #000;
-`
-
 export const Cover = styled.div`
   background-color: #BFAFA6;
 `
 
-export const Title = styled.div`
+export const Title = styled.h3`
+  background-color: #BFAFA6;
+`
+
+export const Author = styled.h4`
   background-color: #BFAFA6;
 `

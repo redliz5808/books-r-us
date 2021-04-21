@@ -1,41 +1,47 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home/";
 import Favorites from "./pages/Favorites/";
 import Search from "./components/Search/";
 import SearchPage from "./pages/SearchPage/";
 import Book from "./pages/Book/";
-import "./App.css";
+import { StyledLink, BigStar, MyGlobalStyle, NavUl, NavLi } from "./app.styles";
+import { FaStar } from "react-icons/fa";
 
-export default function App() {
+const App = () => {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Search />
-            </li>
-            <li>
-              <Link to="/favorites">★</Link>
-            </li>
-          </ul>
-        </nav>
+    <>
+      <MyGlobalStyle />
+      <Router>
+        <div>
+          <nav>
+            <NavUl>
+              <NavLi>
+                <StyledLink to="/">Home</StyledLink>
+              </NavLi>
+              <NavLi>
+                <Search />
+              </NavLi>
+              <NavLi>
+                <StyledLink to="/favorites">
+                  <BigStar>
+                    <FaStar />
+                  </BigStar>
+                </StyledLink>
+              </NavLi>
+            </NavUl>
+          </nav>
 
-        <Switch>
-          <Route path="/favorites">
-            <Favorites />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route component={Book} path="/book/:isbn"></Route>
-          <Route component={SearchPage} path="/search/:searchTerm"></Route>
-        </Switch>
-      </div>
-    </Router>
+          <Switch>
+            <Route component={Favorites} path="/favorites"></Route>
+            <Route component={Home} exact path="/"></Route>
+            <Route component={Book} path="/book/:id"></Route>
+            <Route component={SearchPage} path="/search/:searchTerm"></Route>
+          </Switch>
+        </div>
+      </Router>
+    </>
   );
-}
+};
+
+export default App;

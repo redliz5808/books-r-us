@@ -1,25 +1,34 @@
-import { Link } from "react-router-dom";
-import { Container, Card, Genre } from "./allBooks.styles";
+import unavailableCover from "../../assets/unavailableCover.png";
+import {
+  Container,
+  Card,
+  Genre,
+  StyledLink,
+  Cover,
+  Title,
+} from "./allBooks.styles";
 
-const AllBooks = (props) => {
-  const mappedBooks = props.data.map((book) => {
+const AllBooks = ({ data, genre }) => {
+  const mappedBooks = data.map((book) => {
+    let imageSrc = !book.volumeInfo.imageLinks
+      ? unavailableCover
+      : book.volumeInfo.imageLinks.thumbnail;
+
     return (
       <Card>
-        <Link to={`/book/${book.volumeInfo.industryIdentifiers[0].identifier}`}>
-          <div>{book.volumeInfo.title}</div>
-          <div>
-            <img
-              src={book.volumeInfo.imageLinks.thumbnail}
-              alt={book.volumeInfo.title}
-            />
-          </div>
-        </Link>
+        <StyledLink to={`/book/${book.id}`}>
+          <Title>{book.volumeInfo.title}</Title>
+          <Cover>
+            <img src={imageSrc} alt={book.volumeInfo.title} />
+          </Cover>
+        </StyledLink>
       </Card>
     );
   });
+
   return (
     <Container>
-      <Genre>{props.genre}</Genre>
+      <Genre>{genre}</Genre>
       {mappedBooks}
     </Container>
   );
