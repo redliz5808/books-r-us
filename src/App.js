@@ -5,7 +5,7 @@ import Favorites from "./pages/Favorites/";
 import Search from "./components/Search/";
 import SearchPage from "./pages/SearchPage/";
 import Book from "./pages/Book/";
-import { StyledLink, BigStar, MyGlobalStyle } from "./app.styles";
+import { StyledLink, BigStar, MyGlobalStyle, NavUl, NavLi } from "./app.styles";
 import { FaStar } from "react-icons/fa";
 
 const App = () => {
@@ -15,21 +15,21 @@ const App = () => {
       <Router>
         <div>
           <nav>
-            <ul>
-              <li>
+            <NavUl>
+              <NavLi>
                 <StyledLink to="/">Home</StyledLink>
-              </li>
-              <li>
+              </NavLi>
+              <NavLi>
                 <Search />
-              </li>
-              <li>
+              </NavLi>
+              <NavLi>
                 <StyledLink to="/favorites">
                   <BigStar>
                     <FaStar />
                   </BigStar>
                 </StyledLink>
-              </li>
-            </ul>
+              </NavLi>
+            </NavUl>
           </nav>
 
           <Switch>

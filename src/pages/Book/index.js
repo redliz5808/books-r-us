@@ -20,10 +20,9 @@ class Book extends React.Component {
       const { data } = await axios(
         `https://www.googleapis.com/books/v1/volumes/${id}`
       );
-      this.setState({ data: data, isLoading: false });
-      const favorited = { ...this.state.data };
+      const favorited = data;
       favorited.favorited = false;
-      this.setState({ data: favorited });
+      this.setState({ data: favorited, isLoading: false });
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +54,9 @@ class Book extends React.Component {
           JSON.stringify(this.state.favoritedBooks)
           );
       });
-    } else if (!favoritedBooks) {
-      localStorage.setItem("favoritedBooks", JSON.stringify({}));
-      favoritedBooks = {};
+    // } else if (!favoritedBooks) {
+    //   localStorage.setItem("favoritedBooks", JSON.stringify({}));
+    //   favoritedBooks = {};
     } else {
       favoritedBooks[book.id] = book;
       localStorage.setItem("favoritedBooks", JSON.stringify(favoritedBooks));

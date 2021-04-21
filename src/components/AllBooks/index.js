@@ -10,23 +10,16 @@ import {
 
 const AllBooks = ({ data, genre }) => {
   const mappedBooks = data.map((book) => {
-    let imageSrc = "";
-    if (!book.volumeInfo.imageLinks) {
-      imageSrc = unavailableCover;
-    } else {
-      imageSrc = book.volumeInfo.imageLinks.thumbnail;
-    }
+    let imageSrc = !book.volumeInfo.imageLinks
+      ? unavailableCover
+      : book.volumeInfo.imageLinks.thumbnail;
+
     return (
       <Card>
-        <StyledLink
-          to={`/book/${book.id}`}
-        >
+        <StyledLink to={`/book/${book.id}`}>
           <Title>{book.volumeInfo.title}</Title>
           <Cover>
-            <img
-              src={imageSrc}
-              alt={book.volumeInfo.title}
-            />
+            <img src={imageSrc} alt={book.volumeInfo.title} />
           </Cover>
         </StyledLink>
       </Card>

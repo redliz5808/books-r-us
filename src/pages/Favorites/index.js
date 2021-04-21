@@ -1,6 +1,14 @@
 import React from "react";
 import Loading from "../../components/Loading";
-import { Container, Card, Title, Author, Cover, StyledLink } from "./favorites.styles";
+import {
+  Container,
+  Card,
+  Title,
+  Author,
+  Cover,
+  StyledLink,
+  MultipleAuthors,
+} from "./favorites.styles";
 
 class Favorites extends React.Component {
   state = {
@@ -23,14 +31,20 @@ class Favorites extends React.Component {
         {this.state.isLoading && <Loading />}
         {this.state.data && !this.state.isLoading && (
           <Container>
-            {Object.entries(this.state.data).map((entry) => {
-              // eslint-disable-next-line no-unused-vars
-              const [key, value] = entry;
+            {Object.values(this.state.data).map((value) => {
               return (
                 <Card>
                   <StyledLink to={`/book/${value.id}`}>
                     <Title>{value.volumeInfo.title}</Title>
-                    <Author>{value.volumeInfo.authors}</Author>
+                    <Author>
+                      {value.volumeInfo.authors.map((author) => {
+                        return (
+                          <ul>
+                            <MultipleAuthors>{author}</MultipleAuthors>
+                          </ul>
+                        );
+                      })}
+                    </Author>
                     <Cover>
                       <img
                         src={value.volumeInfo.imageLinks.thumbnail}

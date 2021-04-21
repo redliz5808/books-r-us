@@ -1,7 +1,15 @@
 import { StyledDescription } from "./description.styles";
 
 const Description = ({ description }) => {
-  return <StyledDescription>{description}</StyledDescription>;
+  const htmlDescription = () => {
+    return { __html: `${description}` };
+  };
+
+  return (
+    <StyledDescription
+      dangerouslySetInnerHTML={htmlDescription()}
+    ></StyledDescription>
+  );
 };
 
 export default Description;

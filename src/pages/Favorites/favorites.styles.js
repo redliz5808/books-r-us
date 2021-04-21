@@ -16,26 +16,32 @@ export const Card = styled.div`
   padding: 5px;
   border-radius: 5px;
   box-shadow: 2px 3px 5px #333;
-  background-color: #BFAFA6;
+  background-color: #bfafa6;
 `;
 
 export const Title = styled.h3`
   display: block;
-  background-color: #BFAFA6;
+  background-color: #bfafa6;
 `;
 
 export const Author = styled.h4`
   display: block;
-  background-color: #BFAFA6;
+  background-color: #bfafa6;
 `;
 
 export const Cover = styled.div`
   display: block;
-  background-color: #BFAFA6;
+  background-color: #bfafa6;
 `;
 
 export const StyledLink = styled(Link)`
-  background-color: #BFAFA6;
+  background-color: #bfafa6;
   text-decoration: none;
   color: #000;
-`
+`;
+
+export const MultipleAuthors = styled.li`
+  background-color: #bfafa6;
+  text-align: center;
+  list-style: none;
+`;
