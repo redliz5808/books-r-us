@@ -5,7 +5,14 @@ import Title from "../../components/Title";
 import Author from "../../components/Author";
 import Description from "../../components/Description";
 import Loading from "../../components/Loading";
-import { Container, CoverDiv, Favorite } from "./book.styles";
+import NytReviews from "../../components/NytReviews";
+import {
+  Main,
+  Container,
+  CoverDiv,
+  Favorite,
+  NytContainer,
+} from "./book.styles";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 class Book extends React.Component {
@@ -41,7 +48,6 @@ class Book extends React.Component {
     book.favorited = !book.favorited;
     let favoritedBooks =
       JSON.parse(localStorage.getItem("favoritedBooks")) || {};
-
     let modifiedFavorites = [];
     if (favoritedBooks[id]) {
       modifiedFavorites = Object.entries(favoritedBooks).filter(
@@ -52,14 +58,13 @@ class Book extends React.Component {
         localStorage.setItem(
           "favoritedBooks",
           JSON.stringify(this.state.favoritedBooks)
-          );
+        );
       });
     } else {
       favoritedBooks[book.id] = book;
       localStorage.setItem("favoritedBooks", JSON.stringify(favoritedBooks));
       this.setState({ data: book, favoritedBooks });
     }
-
   };
 
   render() {
@@ -76,18 +81,31 @@ class Book extends React.Component {
       <>
         {this.state.isLoading && <Loading />}
         {this.state.data && !this.state.isLoading && (
-          <Container>
-            <CoverDiv>
-              <Cover
-                coverUrl={this.state.data.volumeInfo.imageLinks.thumbnail}
-                title={this.state.data.volumeInfo.title}
+          <Main>
+            <Container>
+              <CoverDiv>
+                <Cover
+                  coverUrl={this.state.data.volumeInfo.imageLinks.thumbnail}
+                  title={this.state.data.volumeInfo.title}
+                />
+              </CoverDiv>
+              {button}
+              <Title title={this.state.data.volumeInfo.title} />
+              <Author authors={this.state.data.volumeInfo.authors} />
+              <Description
+                description={this.state.data.volumeInfo.description}
               />
-            </CoverDiv>
-            {button}
-            <Title title={this.state.data.volumeInfo.title} />
-            <Author authors={this.state.data.volumeInfo.authors} />
-            <Description description={this.state.data.volumeInfo.description} />
-          </Container>
+            </Container>
+            <NytContainer>
+              <NytReviews
+                title={this.state.data.volumeInfo.title}
+                author={this.state.data.volumeInfo.authors}
+                isbn={
+                  this.state.data.volumeInfo.industryIdentifiers[1].identifier
+                }
+              />
+            </NytContainer>
+          </Main>
         )}
       </>
     );
