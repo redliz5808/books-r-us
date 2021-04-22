@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Loading from "../../components/Loading";
-import { Title, Frame, NoReview } from "./nytReviews.styles";
+import { Title, Frame } from "./nytReviews.styles";
 
 class NytReviews extends React.Component {
   state = {
